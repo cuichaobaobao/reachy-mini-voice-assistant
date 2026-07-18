@@ -30,7 +30,7 @@ dependencies = [
     "scipy>=1.15.3,<2.0.0",
 
     # Compatibility with Reachy Mini OS system packages
-    "pillow<12.0",
+    "pillow<13.0",
     "pydantic<=2.12.5",
     "requests>=2.33.0",
 ]
