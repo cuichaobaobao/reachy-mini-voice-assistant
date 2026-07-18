@@ -906,8 +906,32 @@ class VoiceAssistantService:
         if self._robot_services_paused.is_set():
             return None
 
-        # Get new audio data from SDK
-        audio_data = self.reachy_mini.media.get_audio_sample()
+        # Pull enough SDK chunks in one pass to keep up with the live microphone.
+        # A single SDK chunk can be smaller than AUDIO_BLOCK_SIZE.
+        audio_samples = []
+        buffered_samples = len(self._audio_buffer)
+        for _ in range(20):
+            if buffered_samples >= AUDIO_BLOCK_SIZE:
+                break
+
+            sample = self.reachy_mini.media.get_audio_sample()
+            if (
+                sample is None
+                or not isinstance(sample, np.ndarray)
+                or sample.ndim == 0
+                or sample.size == 0
+            ):
+                break
+
+            audio_samples.append(sample)
+            buffered_samples += sample.shape[0]
+
+        if not audio_samples:
+            audio_data = None
+        elif len(audio_samples) == 1:
+            audio_data = audio_samples[0]
+        else:
+            audio_data = np.concatenate(audio_samples, axis=0)
 
         # Debug: Log SDK audio data statistics and sample rate (once at startup)
         if audio_data is not None and isinstance(audio_data, np.ndarray) and audio_data.size > 0:

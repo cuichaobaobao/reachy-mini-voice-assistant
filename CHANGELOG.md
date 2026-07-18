@@ -2,6 +2,12 @@
 
 All notable changes to Reachy Mini HA Voice are documented here.
 
+## [1.1.2] - 2026-07-18
+
+### Fixed
+- Fill each 512-sample MicroWakeWord audio block from multiple Reachy Mini SDK microphone chunks when necessary, preventing gaps that could stop local wake-word detection.
+- Preserve the existing dual-channel Home Assistant audio path and all other voice-assistant behavior.
+
 ## [1.1.1] - 2026-07-02
 
 ### Changed

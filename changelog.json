@@ -1,5 +1,13 @@
 [
   {
+    "version": "1.1.2",
+    "date": "2026-07-18",
+    "changes": [
+      "Fill each 512-sample MicroWakeWord audio block from multiple Reachy Mini SDK microphone chunks when necessary",
+      "Preserve dual-channel Home Assistant audio forwarding and all other voice-assistant behavior"
+    ]
+  },
+  {
     "version": "1.1.1",
     "date": "2026-07-02",
     "changes": [

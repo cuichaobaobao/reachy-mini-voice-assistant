@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "reachy-mini-ha-voice"
-version = "1.1.1"
+version = "1.1.2"
 description = "Reachy Mini voice companion for Home Assistant"
 readme = "README.md"
 requires-python = ">=3.12"
