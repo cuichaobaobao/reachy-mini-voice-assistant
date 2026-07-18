@@ -1,5 +1,5 @@
 ---
-title: Reachy Mini HA Voice
+title: Reachy Mini Voice Assistant
 emoji: 🤖
 colorFrom: blue
 colorTo: green
