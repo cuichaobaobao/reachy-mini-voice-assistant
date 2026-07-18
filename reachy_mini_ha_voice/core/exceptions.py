@@ -1,4 +1,4 @@
-"""Project exceptions for Reachy Mini HA Voice.
+"""Project exceptions for Reachy Mini Voice Assistant.
 
 This module defines application-specific exceptions for better
 error handling and debugging.

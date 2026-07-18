@@ -1,4 +1,4 @@
-# Reachy Mini HA Voice User Manual
+# Reachy Mini Voice Assistant User Manual
 
 ## Installation
 
@@ -6,10 +6,10 @@ Install `reachy_mini_ha_voice` from the Reachy Mini app store. When started, it 
 
 Home Assistant should usually discover a new ESPHome device automatically:
 
-- Name: `Reachy Mini Voice ******`
+- Name: `Reachy Mini Voice Assistant ******`
 - Port: `6053`
-- Manufacturer: `Reachy Mini HA Voice`
-- Project: `ReachyMini.HAVoice`
+- Manufacturer: `Reachy Mini Voice Assistant`
+- Project: `ReachyMini.VoiceAssistant`
 
 If discovery fails, add ESPHome manually in Home Assistant and enter the robot IP address with port `6053`.
 

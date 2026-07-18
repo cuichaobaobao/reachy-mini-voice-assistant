@@ -1,4 +1,4 @@
-# Reachy Mini HA Voice 用户手册
+# Reachy Mini Voice Assistant 用户手册
 
 ## 安装
 
@@ -6,10 +6,10 @@
 
 Home Assistant 通常会自动发现新的 ESPHome 设备：
 
-- 名称：`Reachy Mini Voice ******`
+- 名称：`Reachy Mini Voice Assistant ******`
 - 端口：`6053`
-- 制造商：`Reachy Mini HA Voice`
-- 项目：`ReachyMini.HAVoice`
+- 制造商：`Reachy Mini Voice Assistant`
+- 项目：`ReachyMini.VoiceAssistant`
 
 如果自动发现失败，可以在 Home Assistant 中手动添加 ESPHome，并填写机器人 IP 和端口 `6053`。
 

@@ -1,5 +1,5 @@
 """
-Reachy Mini HA Voice
+Reachy Mini Voice Assistant
 
 A deep integration app combining Reachy Mini robot with Home Assistant,
 enabling voice control, smart home automation, and expressive robot interactions.
@@ -18,7 +18,7 @@ try:
     __version__ = version("reachy-mini-ha-voice")
 except Exception:
     __version__ = "0.0.0"  # Fallback for development
-__author__ = "Reachy Mini HA Voice"
+__author__ = "Reachy Mini Voice Assistant"
 
 # Don't import main module here to avoid runpy warning
 # The app is loaded via entry point: reachy_mini_ha_voice.main:ReachyMiniHaVoice

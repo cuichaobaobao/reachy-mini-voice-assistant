@@ -1,5 +1,13 @@
 [
   {
+    "version": "1.1.3",
+    "date": "2026-07-18",
+    "changes": [
+      "Unify the user-visible product name as Reachy Mini Voice Assistant across the app store, documentation, web page, runtime logs, and Home Assistant device metadata",
+      "Update the Home Assistant project identity to ReachyMini.VoiceAssistant while preserving internal compatibility identifiers"
+    ]
+  },
+  {
     "version": "1.1.2",
     "date": "2026-07-18",
     "changes": [
@@ -22,7 +30,7 @@
     "date": "2026-06-24",
     "changes": [
       "Start the project as reachy-mini-ha-voice with Python package reachy_mini_ha_voice",
-      "Rebrand Home Assistant device metadata to the clean ReachyMini.HAVoice identity",
+      "Rebrand Home Assistant device metadata to the clean ReachyMini.VoiceAssistant identity",
       "Keep tuned Reachy motion: 60Hz official-style control, breathing, antenna motion, generated idle micro-actions, listening/thinking/speaking states, emotion moves, DOA wake turns, manual head yaw hold, and body-yaw follow",
       "Keep OHF/Linux Voice inspired MicroWakeWord setup with Okay Nabu, Hey Mycroft, Hey Jarvis, and Stop",
       "Trim Home Assistant entities to useful controls and diagnostics",

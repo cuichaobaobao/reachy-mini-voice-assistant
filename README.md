@@ -14,9 +14,9 @@ tags:
   - homeassistant
 ---
 
-# Reachy Mini HA Voice
+# Reachy Mini Voice Assistant
 
-Reachy Mini HA Voice turns Reachy Mini into a Home Assistant voice companion.
+Reachy Mini Voice Assistant turns Reachy Mini into a Home Assistant voice companion.
 It runs directly on the robot, exposes an ESPHome-compatible voice satellite,
 keeps local wake/stop detection, and drives Reachy Mini motion so voice
 interactions feel alive instead of static.
@@ -26,7 +26,7 @@ This is a clean project with its own package and app identity:
 - Python distribution: `reachy-mini-ha-voice`
 - Python package: `reachy_mini_ha_voice`
 - Reachy Mini app entry point: `reachy_mini_ha_voice`
-- Home Assistant device family: `Reachy Mini Voice`
+- Home Assistant device family: `Reachy Mini Voice Assistant`
 
 ## Highlights
 
@@ -53,9 +53,9 @@ This is a clean project with its own package and app identity:
 
 The discovered device should use metadata similar to:
 
-- Manufacturer: `Reachy Mini HA Voice`
-- Model: `Reachy Mini Voice Satellite`
-- Project: `ReachyMini.HAVoice`
+- Manufacturer: `Reachy Mini Voice Assistant`
+- Model: `Reachy Mini Voice Assistant`
+- Project: `ReachyMini.VoiceAssistant`
 
 If you previously used an older app identity, remove the old ESPHome device from
 Home Assistant first, then add the newly discovered device.

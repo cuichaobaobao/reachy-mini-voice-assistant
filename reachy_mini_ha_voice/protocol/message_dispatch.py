@@ -97,12 +97,12 @@ def handle_message(protocol: VoiceSatelliteProtocol, msg: message.Message) -> It
                 uses_password=False,
                 name=protocol.state.name,
                 friendly_name=protocol.state.name,
-                project_name="ReachyMini.HAVoice",
+                project_name="ReachyMini.VoiceAssistant",
                 project_version=__version__,
                 esphome_version=protocol._aioesphomeapi_version,
                 mac_address=protocol.state.mac_address,
-                manufacturer="Reachy Mini HA Voice",
-                model="Reachy Mini Voice Satellite",
+                manufacturer="Reachy Mini Voice Assistant",
+                model="Reachy Mini Voice Assistant",
                 voice_assistant_feature_flags=_voice_assistant_feature_flags(protocol),
             )
         ]

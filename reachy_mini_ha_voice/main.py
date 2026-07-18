@@ -1,5 +1,5 @@
 """
-Reachy Mini HA Voice Application
+Reachy Mini Voice Assistant Application
 
 This is the main entry point for the Reachy Mini application that integrates
 with Home Assistant via ESPHome protocol for voice control.
@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 class ReachyMiniHaVoice(ReachyMiniApp):
     """
-    Reachy Mini HA Voice Application.
+    Reachy Mini Voice Assistant Application.
 
     This app runs an ESPHome-compatible server that connects
     to Home Assistant for STT/TTS processing while providing local
@@ -38,7 +38,7 @@ class ReachyMiniHaVoice(ReachyMiniApp):
         """
         Override wrapped_run to handle Reachy Mini connection failures.
         """
-        logger.info("Starting Reachy Mini HA Voice App...")
+        logger.info("Starting Reachy Mini Voice Assistant App...")
 
         # Connect to ReachyMini
         try:
@@ -63,7 +63,7 @@ class ReachyMiniHaVoice(ReachyMiniApp):
             reachy_mini: The Reachy Mini robot instance (required, cannot be None)
             stop_event: Event to signal graceful shutdown
         """
-        logger.info("Starting Reachy Mini HA Voice...")
+        logger.info("Starting Reachy Mini Voice Assistant...")
 
         # Create and run the HA service
         service = VoiceAssistantService(reachy_mini)
@@ -77,7 +77,7 @@ class ReachyMiniHaVoice(ReachyMiniApp):
             loop.run_until_complete(service.start())
 
             logger.info("=" * 50)
-            logger.info("Reachy Mini HA Voice Started!")
+            logger.info("Reachy Mini Voice Assistant Started!")
             logger.info("=" * 50)
             logger.info("ESPHome Server: 0.0.0.0:6053")
             logger.info("Wake word: Okay Nabu")

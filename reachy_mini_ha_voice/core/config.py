@@ -1,4 +1,4 @@
-"""Centralized configuration for Reachy Mini HA Voice.
+"""Centralized configuration for Reachy Mini Voice Assistant.
 
 This module provides a single source of truth for all configurable values,
 organized by subsystem. Values can be overridden via environment variables
@@ -65,7 +65,7 @@ class ESPHomeConfig:
 
     port: int = 6053
     device_name: str = "reachy-mini-voice"
-    friendly_name: str = "Reachy Mini Voice"
+    friendly_name: str = "Reachy Mini Voice Assistant"
 
 
 @dataclass

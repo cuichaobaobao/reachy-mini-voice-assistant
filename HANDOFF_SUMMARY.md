@@ -1,4 +1,4 @@
-# Handoff Summary - Reachy Mini HA Voice
+# Handoff Summary - Reachy Mini Voice Assistant
 
 Last updated: 2026-07-18
 
@@ -18,9 +18,9 @@ Current local project identity:
 
 Home Assistant ESPHome discovery metadata should be:
 
-- Manufacturer: `Reachy Mini HA Voice`
-- Model: `Reachy Mini Voice Satellite`
-- Project: `ReachyMini.HAVoice`
+- Manufacturer: `Reachy Mini Voice Assistant`
+- Model: `Reachy Mini Voice Assistant`
+- Project: `ReachyMini.VoiceAssistant`
 
 Important: do not push to GitHub or sync to Hugging Face until robot-side testing is complete.
 
@@ -314,7 +314,7 @@ Paste this into the new session:
 请先阅读 HANDOFF_SUMMARY.md、README.md、pyproject.toml，然后接着做第四阶段实机验证前的最终检查。不要推 GitHub，不要同步 Hugging Face，除非我明确说可以。
 
 当前目标：
-1. 这个项目已经改成新的 Reachy Mini HA Voice 身份。
+1. 这个项目已经改成新的 Reachy Mini Voice Assistant 身份。
 2. 包名是 reachy_mini_ha_voice，版本 1.1.1。
 3. 要保留听/思考/说话、DOA、姿态保持、姿态回正、随机 idle、情绪动作。
 4. 语音模型要和 Linux Voice 的 MicroWakeWord 对齐，只保留 okay_nabu、hey_mycroft、hey_jarvis、stop。

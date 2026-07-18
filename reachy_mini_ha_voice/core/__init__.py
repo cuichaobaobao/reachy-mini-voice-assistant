@@ -1,4 +1,4 @@
-"""Core module for Reachy Mini HA Voice.
+"""Core module for Reachy Mini Voice Assistant.
 
 This module contains fundamental components:
 - DaemonStateMonitor: Monitors robot daemon state

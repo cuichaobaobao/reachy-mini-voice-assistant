@@ -1,6 +1,6 @@
-# Reachy Mini HA Voice - Project Summary
+# Reachy Mini Voice Assistant - Project Summary
 
-Reachy Mini HA Voice is a Home Assistant voice companion app for Reachy Mini.
+Reachy Mini Voice Assistant is a Home Assistant voice companion app for Reachy Mini.
 It runs on the robot, exposes an ESPHome-compatible voice satellite, and keeps
 the motion behavior we tuned for a more alive, less mechanical personality.
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Main entry point for Reachy Mini HA Voice.
+"""Main entry point for Reachy Mini Voice Assistant.
 
 This module provides a command-line interface for running the voice assistant
 without the ReachyMini App framework.
@@ -16,7 +16,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def main() -> None:
-    parser = argparse.ArgumentParser(description="Reachy Mini HA Voice")
+    parser = argparse.ArgumentParser(description="Reachy Mini Voice Assistant")
     parser.add_argument(
         "--name",
         default=get_default_friendly_name(),

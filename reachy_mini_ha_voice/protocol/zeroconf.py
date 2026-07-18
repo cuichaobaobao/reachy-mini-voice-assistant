@@ -27,7 +27,7 @@ def get_default_device_name(prefix: str = "reachy-mini-voice") -> str:
 
 def get_default_friendly_name() -> str:
     """Build a stable friendly name for Home Assistant discovery."""
-    return f"Reachy Mini Voice {get_default_device_name(prefix='')[-6:].upper()}"
+    return f"Reachy Mini Voice Assistant {get_default_device_name(prefix='')[-6:].upper()}"
 
 
 def get_local_ip() -> str:

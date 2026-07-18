@@ -1,4 +1,4 @@
-"""Protocol layer for Reachy Mini HA Voice.
+"""Protocol layer for Reachy Mini Voice Assistant.
 
 This package contains communication protocol implementations:
 - ESPHome Native API (satellite)

@@ -1,6 +1,12 @@
 # Changelog
 
-All notable changes to Reachy Mini HA Voice are documented here.
+All notable changes to Reachy Mini Voice Assistant are documented here.
+
+## [1.1.3] - 2026-07-18
+
+### Changed
+- Unify the user-visible product name as Reachy Mini Voice Assistant across the app store, documentation, web page, runtime logs, and Home Assistant device metadata.
+- Update the Home Assistant project identity to `ReachyMini.VoiceAssistant` while preserving the existing internal Python package and app entry point for compatibility.
 
 ## [1.1.2] - 2026-07-18
 
@@ -26,7 +32,7 @@ All notable changes to Reachy Mini HA Voice are documented here.
 - Keep Home Assistant voice pipeline integration for STT, conversation, TTS, media-player volume, mute, continuous conversation, and wake/stop sensitivity controls.
 
 ### Changed
-- Rebrand Home Assistant device metadata to the clean `ReachyMini.HAVoice` identity.
+- Rebrand Home Assistant device metadata to the clean `ReachyMini.VoiceAssistant` identity.
 - Trim the Home Assistant entity surface to the controls and diagnostics that are useful day to day.
 - Keep internal robot capabilities available while removing noisy HA-facing entities such as Head X/Y/Z, raw IMU acceleration/gyro axes, Speech Detected, and Services Suspended.
 

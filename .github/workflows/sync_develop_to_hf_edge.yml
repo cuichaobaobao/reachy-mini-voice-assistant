@@ -21,10 +21,10 @@ jobs:
 
           readme = Path("README.md")
           text = readme.read_text(encoding="utf-8")
-          text = text.replace("title: Reachy Mini HA Voice", "title: Reachy Mini HA Voice Edge", 1)
+          text = text.replace("title: Reachy Mini Voice Assistant", "title: Reachy Mini Voice Assistant Edge", 1)
           text = text.replace(
               "short_description: Reachy Mini voice companion for Home Assistant",
-              "short_description: Edge channel for Reachy Mini HA Voice",
+              "short_description: Edge channel for Reachy Mini Voice Assistant",
               1,
           )
           readme.write_text(text, encoding="utf-8")
