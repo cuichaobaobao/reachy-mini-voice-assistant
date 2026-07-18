@@ -1,0 +1,83 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.claude/*
+.serena/*
+.spec-workflow/
+.playwright-mcp/
+*~
+CLAUDE.md
+commit_msg.txt
+
+# Configuration
+config.json
+.env
+*.log
+
+# Cache
+.cache/
+*.cache
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Audio (exclude package bundled files)
+*.wav
+*.mp3
+# *.flac - bundled in package
+!reachy_mini_ha_voice/sounds/*.flac
+
+# Models (exclude package bundled files)
+# models/ - ignore external models directory
+models/
+# Package bundled models
+!reachy_mini_ha_voice/models/
+reachy_mini_ha_voice/models/*.tflite
+reachy_mini_ha_voice/models/*.onnx
+reachy_mini_ha_voice/models/*.pt
+
+# SDK Reference (local development only)
+reference/
+local/
+# ha/ - temporarily commented out for path fixes
+# ha/ will be moved to separate repository soon
+
+# Temporary check scripts
+temp_check_scripts/

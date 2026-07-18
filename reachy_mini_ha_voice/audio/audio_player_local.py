@@ -1,0 +1,140 @@
+from __future__ import annotations
+
+import time
+
+from .audio_player_shared import (
+    _LOGGER,
+    STREAM_FETCH_CHUNK_SIZE,
+    sniff_audio_content_type,
+)
+
+
+class AudioPlayerLocalMixin:
+    def _play_cached_audio(self, audio_bytes: bytes | bytearray, content_type: str, source_url: str = "") -> bool:
+        if not audio_bytes:
+            return False
+        audio_data = bytes(audio_bytes)
+        if (not content_type) or (content_type == "application/octet-stream"):
+            sniffed = sniff_audio_content_type(audio_data[: min(len(audio_data), 64)])
+            if sniffed:
+                content_type = sniffed
+        mem_iter = (
+            audio_data[i : i + STREAM_FETCH_CHUNK_SIZE] for i in range(0, len(audio_data), STREAM_FETCH_CHUNK_SIZE)
+        )
+        adapted_response = self._iterator_response_adapter(mem_iter)
+        if self._is_pcm_content_type(content_type):
+            return self._stream_pcm_response(adapted_response, content_type)
+        if self._stream_decoded_response(adapted_response, source_url or "memory-cache", content_type):
+            return True
+        return self._play_cached_audio_via_tempfile(audio_data, content_type, source_url)
+
+    def _play_cached_audio_via_tempfile(self, audio_data: bytes, content_type: str, source_url: str) -> bool:
+        import os
+        import tempfile
+
+        temp_path = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                delete=False, suffix=self._guess_audio_suffix(content_type, source_url)
+            ) as tmp:
+                tmp.write(audio_data)
+                temp_path = tmp.name
+            self._play_local_file(temp_path)
+            return True
+        except Exception as e:
+            _LOGGER.debug("Tempfile fallback playback failed: %s", e)
+            return False
+        finally:
+            if temp_path:
+                try:
+                    os.unlink(temp_path)
+                except Exception:
+                    pass
+
+    def _guess_audio_suffix(self, content_type: str, source_url: str) -> str:
+        from urllib.parse import urlparse
+
+        ct = (content_type or "").split(";", 1)[0].strip().lower()
+        mapping = {
+            "audio/mpeg": ".mp3",
+            "audio/mp3": ".mp3",
+            "audio/aac": ".aac",
+            "audio/mp4": ".m4a",
+            "audio/ogg": ".ogg",
+            "application/ogg": ".ogg",
+            "audio/opus": ".opus",
+            "audio/webm": ".webm",
+            "audio/wav": ".wav",
+            "audio/wave": ".wav",
+            "audio/x-wav": ".wav",
+            "audio/flac": ".flac",
+            "audio/x-flac": ".flac",
+        }
+        if ct in mapping:
+            return mapping[ct]
+        try:
+            path = urlparse(source_url).path
+            if "." in path:
+                suffix = "." + path.rsplit(".", 1)[1]
+                if len(suffix) <= 8:
+                    return suffix
+        except Exception:
+            pass
+        return ".bin"
+
+    def _play_local_file(self, file_path: str) -> None:
+        wobbler = None
+        try:
+            duration: float | None = None
+            try:
+                import soundfile as sf
+
+                info = sf.info(file_path)
+                if info.samplerate > 0 and info.frames > 0:
+                    duration = float(info.frames) / float(info.samplerate)
+            except Exception:
+                duration = None
+            if self._sway_callback is not None:
+                try:
+                    import soundfile as sf
+
+                    data, sample_rate = sf.read(file_path)
+                    if duration is None and sample_rate > 0:
+                        duration = len(data) / sample_rate
+                    from .head_wobbler import HeadWobbler
+
+                    wobbler = HeadWobbler(self._sway_callback)
+                    wobbler.start()
+                    wobbler.feed(data, sample_rate)
+                except Exception:
+                    if wobbler is not None:
+                        wobbler.stop()
+                    wobbler = None
+            self.reachy_mini.media.play_sound(file_path)
+            start_time = time.monotonic()
+            has_duration = (duration is not None) and (duration > 0)
+            duration_s = duration if has_duration and duration is not None else 0.0
+            max_duration = (duration_s * 1.5) if has_duration else 60.0
+            playback_timeout = start_time + max_duration
+            while True:
+                now = time.monotonic()
+                if now > playback_timeout:
+                    _LOGGER.warning("Audio playback timeout (%.1fs), stopping", max_duration)
+                    self.reachy_mini.media.stop_playing()
+                    break
+                if self._stop_flag.is_set():
+                    self.reachy_mini.media.stop_playing()
+                    break
+                if has_duration:
+                    if (now - start_time) >= duration_s:
+                        break
+                else:
+                    try:
+                        if not bool(self.reachy_mini.media.is_playing()):
+                            break
+                    except Exception:
+                        pass
+                time.sleep(0.02)
+        finally:
+            if wobbler is not None:
+                wobbler.finish()

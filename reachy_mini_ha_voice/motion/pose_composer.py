@@ -1,0 +1,228 @@
+"""Pose composition module for Reachy Mini.
+
+This module provides utilities for composing robot head poses from
+multiple sources (target, animation, speech sway).
+
+The composition logic follows the reachy_mini_conversation_app approach:
+1. Build primary pose from target state
+2. Build secondary pose from animation + speech sway
+3. Compose using SDK's compose_world_offset for proper rotation composition
+"""
+
+import logging
+import math
+from dataclasses import dataclass
+
+import numpy as np
+from reachy_mini.utils import create_head_pose
+from reachy_mini.utils.interpolation import compose_world_offset
+from scipy.spatial.transform import Rotation as R
+
+logger = logging.getLogger(__name__)
+
+
+# Body yaw safety limits (matches SDK's inverse_kinematics_safe constraints)
+MAX_BODY_YAW_RAD = math.radians(160.0)
+MIN_BODY_YAW_RAD = math.radians(-160.0)
+
+
+@dataclass
+class PoseComponents:
+    """Container for pose components.
+
+    All angles are in radians, positions in meters.
+    """
+
+    # Translation
+    x: float = 0.0
+    y: float = 0.0
+    z: float = 0.0
+
+    # Rotation (euler xyz)
+    roll: float = 0.0
+    pitch: float = 0.0
+    yaw: float = 0.0
+
+
+@dataclass
+class AntennaComponents:
+    """Container for antenna components."""
+
+    target_left: float = 0.0
+    target_right: float = 0.0
+    anim_left: float = 0.0
+    anim_right: float = 0.0
+
+
+def create_head_pose_matrix(
+    x: float = 0.0,
+    y: float = 0.0,
+    z: float = 0.0,
+    roll: float = 0.0,
+    pitch: float = 0.0,
+    yaw: float = 0.0,
+) -> np.ndarray:
+    """Create a 4x4 head pose matrix from position and rotation.
+
+    Args:
+        x, y, z: Position in meters
+        roll, pitch, yaw: Rotation in radians (euler xyz)
+
+    Returns:
+        4x4 numpy array representing the pose
+    """
+    return create_head_pose(
+        x=x,
+        y=y,
+        z=z,
+        roll=roll,
+        pitch=pitch,
+        yaw=yaw,
+        degrees=False,
+        mm=False,
+    )
+
+
+def compose_poses(
+    primary: np.ndarray,
+    secondary: np.ndarray,
+    reorthonormalize: bool = True,
+) -> np.ndarray:
+    """Compose two pose matrices.
+
+    Args:
+        primary: Primary pose matrix (target)
+        secondary: Secondary pose matrix (offsets)
+        reorthonormalize: Whether to normalize the rotation matrix
+
+    Returns:
+        Composed 4x4 pose matrix
+    """
+    return compose_world_offset(primary, secondary, reorthonormalize=reorthonormalize)
+
+
+def extract_yaw_from_pose(pose: np.ndarray) -> float:
+    """Extract yaw angle from a 4x4 pose matrix.
+
+    Args:
+        pose: 4x4 pose matrix
+
+    Returns:
+        Yaw angle in radians
+    """
+    rotation = R.from_matrix(pose[:3, :3])
+    _, _, yaw = rotation.as_euler("xyz")
+    return yaw
+
+
+def clamp_body_yaw(yaw: float) -> float:
+    """Clamp body yaw to safe range.
+
+    SDK's inverse_kinematics_safe limits body_yaw to ±160°.
+
+    Args:
+        yaw: Yaw angle in radians
+
+    Returns:
+        Clamped yaw angle in radians
+    """
+    return max(MIN_BODY_YAW_RAD, min(MAX_BODY_YAW_RAD, yaw))
+
+
+def compose_full_pose(
+    target: PoseComponents,
+    animation: PoseComponents,
+    sway: PoseComponents,
+    animation_blend: float = 1.0,
+) -> tuple[np.ndarray, float]:
+    """Compose full head pose from all sources.
+
+    Args:
+        target: Target pose components
+        animation: Animation pose components
+        sway: Speech sway pose components
+        animation_blend: Blend factor for animation (0=suppressed, 1=full)
+
+    Returns:
+        Tuple of (head_pose_4x4, head_yaw)
+    """
+    # Build primary head pose from target
+    primary_head = create_head_pose_matrix(
+        x=target.x,
+        y=target.y,
+        z=target.z,
+        roll=target.roll,
+        pitch=target.pitch,
+        yaw=target.yaw,
+    )
+
+    # Apply animation blend factor
+    anim_x = animation.x * animation_blend
+    anim_y = animation.y * animation_blend
+    anim_z = animation.z * animation_blend
+    anim_roll = animation.roll * animation_blend
+    anim_pitch = animation.pitch * animation_blend
+    anim_yaw = animation.yaw * animation_blend
+
+    # Combine secondary sources
+    secondary_x = anim_x + sway.x
+    secondary_y = anim_y + sway.y
+    secondary_z = anim_z + sway.z
+    secondary_roll = anim_roll + sway.roll
+    secondary_pitch = anim_pitch + sway.pitch
+    secondary_yaw = anim_yaw + sway.yaw
+
+    # Build secondary head pose
+    secondary_head = create_head_pose_matrix(
+        x=secondary_x,
+        y=secondary_y,
+        z=secondary_z,
+        roll=secondary_roll,
+        pitch=secondary_pitch,
+        yaw=secondary_yaw,
+    )
+
+    # Compose poses
+    final_head = compose_poses(primary_head, secondary_head)
+
+    # Extract yaw for body following
+    head_yaw = extract_yaw_from_pose(final_head)
+
+    return final_head, head_yaw
+
+
+def compute_antenna_positions(
+    antenna: AntennaComponents,
+    animation_blend: float = 1.0,
+    freeze_blend: float = 1.0,
+    frozen_left: float = 0.0,
+    frozen_right: float = 0.0,
+) -> tuple[float, float]:
+    """Compute final antenna positions with blending.
+
+    Args:
+        antenna: Antenna target and animation components
+        animation_blend: Blend factor for animation (0=suppressed, 1=full)
+        freeze_blend: Freeze blend factor (0=frozen, 1=unfrozen)
+        frozen_left: Frozen left antenna position
+        frozen_right: Frozen right antenna position
+
+    Returns:
+        Tuple of (left_position, right_position)
+    """
+    # Apply animation blend
+    anim_left = antenna.anim_left * animation_blend
+    anim_right = antenna.anim_right * animation_blend
+
+    target_left = antenna.target_left + anim_left
+    target_right = antenna.target_right + anim_right
+
+    # Apply freeze blending
+    if freeze_blend < 1.0:
+        left = frozen_left * (1.0 - freeze_blend) + target_left * freeze_blend
+        right = frozen_right * (1.0 - freeze_blend) + target_right * freeze_blend
+    else:
+        left = target_left
+        right = target_right
+
+    return left, right

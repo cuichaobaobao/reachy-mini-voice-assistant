@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Reachy Mini HA Voice</title>
+	<meta name="description" content="Voice assistant integration for Reachy Mini robot with Home Assistant. Control your smart home with voice commands and expressive robot movements.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+	<header class="hero">
+		<div class="topline">
+			<div class="brand">
+				<span class="logo">🤖</span>
+				<span class="brand-name">Reachy Mini HA Voice</span>
+			</div>
+			<div class="pill">Voice · Motion · Smart Home</div>
+			<div class="version-pill" id="version-pill">v1.0.13</div>
+		</div>
+		<div class="hero-grid">
+			<div class="hero-copy">
+				<p class="eyebrow">Reachy Mini App</p>
+				<h1>Your robot meets your Home Assistant.</h1>
+				<p class="lede">
+					Transform Reachy Mini Wi-Fi into a voice-controlled smart home hub. Natural conversations, expressive movements, and sound-source orientation — all connected to Home Assistant.
+				</p>
+				<div class="hero-actions">
+					<a class="btn primary" href="#requirements">Requirements</a>
+					<a class="btn ghost" href="#install">Quick Start</a>
+					<a class="btn ghost" href="#features">Features</a>
+				</div>
+				<div class="hero-badges">
+					<span>🎤 Wake Word</span>
+					<span>🎯 Sound Tracking</span>
+					<span>🔄 Body Following</span>
+					<span>🔊 Multi-room Audio</span>
+					<span>⚡ Zero Config</span>
+					<span>🃏 Dashboard Card</span>
+				</div>
+			</div>
+			<div class="hero-visual">
+				<div class="video-container">
+					<iframe src="https://www.youtube.com/embed/OuhTSTKB25o" title="Reachy Mini HA Voice Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<section id="requirements" class="section">
+		<div class="section-header">
+			<p class="eyebrow">Before You Start</p>
+			<h2>Requirements</h2>
+			<p class="intro">Make sure you have everything ready for a smooth setup.</p>
+		</div>
+		<div class="requirements-grid">
+			<div class="requirement-card">
+				<span class="icon">🤖</span>
+				<h3>Reachy Mini Wi-Fi</h3>
+				<p>This app requires the <strong>Wi-Fi version</strong> of Reachy Mini. The USB version has not been validated</p>
+			</div>
+			<div class="requirement-card">
+				<span class="icon">🏠</span>
+				<h3>Home Assistant</h3>
+				<p>A running Home Assistant instance </p>
+			</div>
+			<div class="requirement-card">
+				<span class="icon">📶</span>
+				<h3>Same Network</h3>
+				<p>Both Reachy Mini and Home Assistant must be on the <strong>same local network</strong>.</p>
+			</div>
+			<div class="requirement-card">
+				<span class="icon">🎙️</span>
+				<h3>Voice Pipeline</h3>
+				<p>Configure a <strong>Voice Assistant pipeline</strong> in Home Assistant (STT + TTS + LLM).</p>
+			</div>
+		</div>
+	</section>
+
+	<section id="install" class="section story">
+		<div class="section-header">
+			<p class="eyebrow">Getting Started</p>
+			<h2>Quick Start</h2>
+			<p class="intro">Install and connect in under a minute. No configuration needed.</p>
+		</div>
+		<div class="story-grid">
+			<div class="story-card">
+				<p class="eyebrow">Installation</p>
+				<h3>Up and running in 1 minute</h3>
+				<ul class="story-list">
+					<li><span>1️⃣</span> Open Reachy Mini Dashboard → Applications</li>
+					<li><span>2️⃣</span> Enable "Show community apps"</li>
+					<li><span>3️⃣</span> Install "Reachy Mini HA Voice"</li>
+					<li><span>4️⃣</span> Home Assistant discovers automatically</li>
+				</ul>
+			</div>
+			<div class="story-card secondary">
+				<p class="eyebrow">How it works</p>
+				<h3>Seamless integration</h3>
+				<p class="story-text">
+					This Reachy Mini app uses ESPHome protocol to communicate with Home Assistant — no ESPHome device needed. Home Assistant discovers it via mDNS and adds the robot entities automatically. Voice commands are processed by your Home Assistant instance — STT, intent recognition, and TTS all happen there.
+				</p>
+				<div class="chips">
+					<span class="chip">ESPHome Protocol</span>
+					<span class="chip">mDNS Discovery</span>
+					<span class="chip">Robot Entities</span>
+					<span class="chip">Zero Config</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="features" class="section features">
+		<div class="section-header">
+			<p class="eyebrow">Capabilities</p>
+			<h2>Everything you need for smart home control</h2>
+			<p class="intro">Zero-configuration robot entities, built-in reactions, and auto-discovery via mDNS.</p>
+		</div>
+		<div class="feature-grid">
+			<div class="feature-card">
+				<span class="icon">🎤</span>
+				<h3>Voice Wake</h3>
+				<p>Local wake word detection with MicroWakeWord. Say "Okay Nabu", "Hey Mycroft", or "Hey Jarvis" to activate.</p>
+			</div>
+			<div class="feature-card">
+				<span class="icon">🏠</span>
+				<h3>Smart Home Control</h3>
+				<p>Full Home Assistant integration. Control lights, switches, climate, media — anything in your Home Assistant.</p>
+			</div>
+			<div class="feature-card">
+				<span class="icon">🎯</span>
+				<h3>Sound-Source Orientation</h3>
+				<p>Direction-of-arrival data turns the robot toward the speaker on wake, with smooth head and body motion.</p>
+			</div>
+			<div class="feature-card">
+				<span class="icon">🎛️</span>
+				<h3>Manual Pose Control</h3>
+				<p>Home Assistant number entities control head pose, body yaw, and antennas, including smooth manual yaw hold.</p>
+			</div>
+			<div class="feature-card">
+				<span class="icon">😊</span>
+				<h3>Expressive Motion</h3>
+				<p>Built-in listening, thinking, speaking, timer, and emotion reactions with natural head sway and non-blocking motion during conversations.</p>
+			</div>
+			<div class="feature-card">
+				<span class="icon">🔊</span>
+				<h3>Multi-room Audio</h3>
+				<p>Sendspin protocol support. Sync audio playback with other speakers throughout your home.</p>
+			</div>
+			<div class="feature-card">
+				<span class="icon">⚡</span>
+				<h3>Zero Configuration</h3>
+				<p>Install and go. mDNS auto-discovery and built-in HA reactions mean the default experience works without extra setup.</p>
+			</div>
+			<div class="feature-card">
+				<span class="icon">🃏</span>
+				<h3>Dashboard Card</h3>
+				<p>Optional Lovelace card for Home Assistant. Real-time 3D visualization of robot pose and status.</p>
+			</div>
+			<div class="feature-card">
+				<span class="icon">🚀</span>
+				<h3>Auto Release</h3>
+				<p>Version-driven GitHub release workflow. Update pyproject/changelog, then release is created automatically.</p>
+			</div>
+		</div>
+	</section>
+
+	<section id="changelog" class="section">
+		<div class="section-header">
+			<p class="eyebrow">Updates</p>
+			<h2>Changelog</h2>
+		</div>
+		<div id="changelog-grid" class="changelog-grid"></div>
+		<div class="changelog-more">
+			<details id="changelog-details">
+				<summary>View older versions</summary>
+				<div id="changelog-older" class="changelog-grid older"></div>
+			</details>
+		</div>
+	</section>
+
+	<script>
+		const VISIBLE_COUNT = 6;
+		fetch('changelog.json')
+			.then(res => res.json())
+			.then(data => {
+				// Update version pill with latest version
+				if (data.length > 0) {
+					const versionPill = document.getElementById('version-pill');
+					if (versionPill) {
+						versionPill.textContent = `v${data[0].version}`;
+					}
+				}
+
+				// Populate changelog grid
+				const mainGrid = document.getElementById('changelog-grid');
+				const olderGrid = document.getElementById('changelog-older');
+				data.forEach((item, index) => {
+					const card = document.createElement('div');
+					card.className = 'changelog-card';
+					card.innerHTML = `
+						<div class="version-badge">v${item.version}</div>
+						<span class="date">${item.date}</span>
+						<ul>${item.changes.map(c => `<li>${c}</li>`).join('')}</ul>
+					`;
+					(index < VISIBLE_COUNT ? mainGrid : olderGrid).appendChild(card);
+				});
+				if (data.length <= VISIBLE_COUNT) {
+					document.getElementById('changelog-details').style.display = 'none';
+				}
+			})
+			.catch(err => console.error('Failed to load changelog:', err));
+	</script>
+
+	<section class="section links">
+		<div class="section-header">
+			<p class="eyebrow">Resources</p>
+			<h2>Links & References</h2>
+		</div>
+		<div class="links-grid">
+			<a href="https://github.com/Desmond-Dong/ha-reachy-mini" target="_blank" class="link-card">
+				<span class="icon">🃏</span>
+				<h3>HA Dashboard Card</h3>
+				<p>Lovelace Card for HA</p>
+			</a>
+			<a href="https://www.pollen-robotics.com/" target="_blank" class="link-card">
+				<span class="icon">🤖</span>
+				<h3>Pollen Robotics</h3>
+				<p>Reachy Mini Creator</p>
+			</a>
+			<a href="https://www.home-assistant.io/" target="_blank" class="link-card">
+				<span class="icon">🏠</span>
+				<h3>Home Assistant</h3>
+				<p>Smart Home Platform</p>
+			</a>
+			<a href="https://esphome.io/" target="_blank" class="link-card">
+				<span class="icon">⚡</span>
+				<h3>ESPHome Protocol</h3>
+				<p>Communication Protocol</p>
+			</a>
+			<a href="https://github.com/OHF-Voice/linux-voice-assistant" target="_blank" class="link-card">
+				<span class="icon">🎤</span>
+				<h3>linux-voice-assistant</h3>
+				<p>Voice Assistant Base</p>
+			</a>
+			<a href="https://github.com/kahrendt/microWakeWord" target="_blank" class="link-card">
+				<span class="icon">👂</span>
+				<h3>microWakeWord</h3>
+				<p>Wake Word Detection</p>
+			</a>
+			<a href="https://hf.co/docs/reachy_mini/SDK/python-sdk" target="_blank" class="link-card">
+				<span class="icon">📚</span>
+				<h3>Reachy Mini SDK</h3>
+				<p>Python SDK Documentation</p>
+			</a>
+			<a href="https://github.com/Sendspin/sendspin-cli" target="_blank" class="link-card">
+				<span class="icon">🔊</span>
+				<h3>Sendspin</h3>
+				<p>Multi-room Audio</p>
+			</a>
+			<a href="https://hf.co/spaces/pollen-robotics/reachy-mini-landing-page#apps" target="_blank" class="link-card">
+				<span class="icon">🛒</span>
+				<h3>Reachy Mini App Store</h3>
+				<p>More Apps</p>
+			</a>
+		</div>
+	</section>
+
+	<footer class="footer">
+		<p>Built by <a href="https://github.com/Desmond-Dong" target="_blank">Desmond</a></p>
+	</footer>
+</body>
+</html>
