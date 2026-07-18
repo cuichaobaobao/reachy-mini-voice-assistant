@@ -15,7 +15,7 @@ dependencies = [
 
     # Audio processing (for audio file analysis)
     "soundfile>=0.13.0",
-    "numpy>=2.2.5,<=2.2.5",
+    "numpy>=2.2.5,<=2.5.1",
 
     # Wake word detection (local)
     # STT/TTS is handled by Home Assistant, not locally
